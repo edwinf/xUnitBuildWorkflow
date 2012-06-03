@@ -1,4 +1,4 @@
-﻿<Activity mc:Ignorable="sap sads" x:Class="CustomBuildActivities.xUnitRunner" local:xUnitRunner.TestDLLSpec="**\*tests*" local:xUnitRunner.ResultsFile="results.xml" local:xUnitRunner.UseXMLOutputFormat="True"
+﻿<Activity mc:Ignorable="sads sap" x:Class="CustomBuildActivities.xUnitRunner" this:xUnitRunner.TestDLLSpec="**\*tests*" this:xUnitRunner.ResultsFile="results.xml" this:xUnitRunner.UseXMLOutputFormat="True" this:xUnitRunner.FailBuildOnTestFailure="False"
  xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities"
  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
  xmlns:mt="clr-namespace:Microsoft.TeamFoundation;assembly=Microsoft.TeamFoundation.Common"
@@ -36,18 +36,20 @@
  xmlns:sr="clr-namespace:System.Reflection;assembly=mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089"
  xmlns:st="clr-namespace:System.Text;assembly=mscorlib"
  xmlns:str="clr-namespace:System.Text.RegularExpressions;assembly=System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089"
- xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
- xmlns:local="clr-namespace:CustomBuildActivities">
+ xmlns:this="clr-namespace:CustomBuildActivities"
+ xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
   <x:Members>
     <x:Property Name="TestDLLSpec" Type="InArgument(x:String)" />
     <x:Property Name="PathToxUnit" Type="InArgument(x:String)" />
     <x:Property Name="ResultsFile" Type="InArgument(x:String)" />
     <x:Property Name="WorkingDirectory" Type="InArgument(x:String)" />
     <x:Property Name="UseXMLOutputFormat" Type="InArgument(x:Boolean)" />
+    <x:Property Name="xUnitReturnCode" Type="OutArgument(x:Int32)" />
+    <x:Property Name="FailBuildOnTestFailure" Type="InArgument(x:Boolean)" />
   </x:Members>
-  <sap:VirtualizedContainerService.HintSize>596,1027</sap:VirtualizedContainerService.HintSize>
+  <sap:VirtualizedContainerService.HintSize>596,1085</sap:VirtualizedContainerService.HintSize>
   <mva:VisualBasic.Settings>Assembly references and imported namespaces serialized as XML namespaces</mva:VisualBasic.Settings>
-  <Sequence DisplayName="Run xUnit" sad:XamlDebuggerXmlReader.FileName="E:\Users\Edwin\Programs\Git\xUnitBuildTask\xUnitBuildActivities\xUnit.xaml" sap:VirtualizedContainerService.HintSize="556,963" mva:VisualBasic.Settings="Assembly references and imported namespaces serialized as XML namespaces">
+  <Sequence DisplayName="Run xUnit" sad:XamlDebuggerXmlReader.FileName="E:\Users\Edwin\Programs\Git\xUnitBuildTask\xUnitBuildActivities\xUnit.xaml" sap:VirtualizedContainerService.HintSize="556,1045" mva:VisualBasic.Settings="Assembly references and imported namespaces serialized as XML namespaces">
     <Sequence.Variables>
       <Variable x:TypeArguments="mtbc1:IBuildDetail" Name="BuildDetail" />
       <Variable x:TypeArguments="scg3:IEnumerable(x:String)" Name="MatchingFiles" />
@@ -119,7 +121,7 @@
       </Assign.Value>
     </Assign>
     <mtbwa:FindMatchingFiles DisplayName="Find Matching Files" sap:VirtualizedContainerService.HintSize="534,22" MatchPattern="[FileSpecToMatch]" Result="[MatchingFiles]" />
-    <If Condition="[MatchingFiles.Any()]" DisplayName="Handle Matching Files" sap:VirtualizedContainerService.HintSize="534,586">
+    <If Condition="[MatchingFiles.Any()]" DisplayName="Handle Matching Files" sap:VirtualizedContainerService.HintSize="534,668">
       <sap:WorkflowViewStateService.ViewState>
         <scg3:Dictionary x:TypeArguments="x:String, x:Object">
           <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -127,34 +129,68 @@
         </scg3:Dictionary>
       </sap:WorkflowViewStateService.ViewState>
       <If.Then>
-        <Sequence DisplayName="Process Matching Files" sap:VirtualizedContainerService.HintSize="309,478">
+        <Sequence DisplayName="Process Matching Files" sap:VirtualizedContainerService.HintSize="309,560">
+          <Sequence.Variables>
+            <Variable x:TypeArguments="x:Boolean" Default="False" Name="failBuild" />
+          </Sequence.Variables>
           <sap:WorkflowViewStateService.ViewState>
             <scg3:Dictionary x:TypeArguments="x:String, x:Object">
               <x:Boolean x:Key="IsExpanded">True</x:Boolean>
             </scg3:Dictionary>
           </sap:WorkflowViewStateService.ViewState>
           <mtbwa:WriteBuildMessage DisplayName="Log Test Run Starting" sap:VirtualizedContainerService.HintSize="287,22" Importance="[BuildMessageImportance.High]" Message="Begining xUnit run" mva:VisualBasic.Settings="Assembly references and imported namespaces serialized as XML namespaces" />
-          <ForEach x:TypeArguments="x:String" DisplayName="Enumerate Matching Files" sap:VirtualizedContainerService.HintSize="287,292" Values="[MatchingFiles]">
+          <ForEach x:TypeArguments="x:String" DisplayName="Enumerate Matching Files" sap:VirtualizedContainerService.HintSize="287,374" Values="[MatchingFiles]">
             <ActivityAction x:TypeArguments="x:String">
               <ActivityAction.Argument>
                 <DelegateInArgument x:TypeArguments="x:String" Name="path" />
               </ActivityAction.Argument>
-              <mtbwa:InvokeProcess Arguments="[String.Format(&quot;{0} /silent {1} {2}&quot;, path, If(UseXMLOutputFormat = True, &quot;/xml&quot;, &quot;&quot;), If(UseXMLOutputFormat = True, ResultsFile, &quot;&quot;))]" DisplayName="xUnit Runner" FileName="[PathToxUnit]" sap:VirtualizedContainerService.HintSize="200,184" WorkingDirectory="[WorkingDirectory]">
-                <mtbwa:InvokeProcess.ErrorDataReceived>
-                  <ActivityAction x:TypeArguments="x:String">
-                    <ActivityAction.Argument>
-                      <DelegateInArgument x:TypeArguments="x:String" Name="errOutput" />
-                    </ActivityAction.Argument>
-                  </ActivityAction>
-                </mtbwa:InvokeProcess.ErrorDataReceived>
-                <mtbwa:InvokeProcess.OutputDataReceived>
-                  <ActivityAction x:TypeArguments="x:String">
-                    <ActivityAction.Argument>
-                      <DelegateInArgument x:TypeArguments="x:String" Name="stdOutput" />
-                    </ActivityAction.Argument>
-                  </ActivityAction>
-                </mtbwa:InvokeProcess.OutputDataReceived>
-              </mtbwa:InvokeProcess>
+              <Sequence sap:VirtualizedContainerService.HintSize="222,266">
+                <sap:WorkflowViewStateService.ViewState>
+                  <scg3:Dictionary x:TypeArguments="x:String, x:Object">
+                    <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                  </scg3:Dictionary>
+                </sap:WorkflowViewStateService.ViewState>
+                <mtbwa:InvokeProcess Arguments="[String.Format(&quot;{0} /silent {1} {2}&quot;, path, If(UseXMLOutputFormat = True, &quot;/xml&quot;, &quot;&quot;), If(UseXMLOutputFormat = True, ResultsFile, &quot;&quot;))]" DisplayName="xUnit Runner" FileName="[PathToxUnit]" sap:VirtualizedContainerService.HintSize="200,51" Result="[xUnitReturnCode]" WorkingDirectory="[WorkingDirectory]">
+                  <mtbwa:InvokeProcess.ErrorDataReceived>
+                    <ActivityAction x:TypeArguments="x:String">
+                      <ActivityAction.Argument>
+                        <DelegateInArgument x:TypeArguments="x:String" Name="errOutput" />
+                      </ActivityAction.Argument>
+                    </ActivityAction>
+                  </mtbwa:InvokeProcess.ErrorDataReceived>
+                  <mtbwa:InvokeProcess.OutputDataReceived>
+                    <ActivityAction x:TypeArguments="x:String">
+                      <ActivityAction.Argument>
+                        <DelegateInArgument x:TypeArguments="x:String" Name="stdOutput" />
+                      </ActivityAction.Argument>
+                    </ActivityAction>
+                  </mtbwa:InvokeProcess.OutputDataReceived>
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg3:Dictionary x:TypeArguments="x:String, x:Object">
+                      <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                      <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                    </scg3:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                </mtbwa:InvokeProcess>
+                <If Condition="[xUnitReturnCode &lt;&gt; 0]" sap:VirtualizedContainerService.HintSize="200,51">
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg3:Dictionary x:TypeArguments="x:String, x:Object">
+                      <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                      <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                    </scg3:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                  <If.Then>
+                    <Assign sap:VirtualizedContainerService.HintSize="242,60">
+                      <Assign.To>
+                        <OutArgument x:TypeArguments="x:Boolean">[failBuild]</OutArgument>
+                      </Assign.To>
+                      <Assign.Value>
+                        <InArgument x:TypeArguments="x:Boolean">True</InArgument>
+                      </Assign.Value>
+                    </Assign>
+                  </If.Then>
+                </If>
+              </Sequence>
             </ActivityAction>
           </ForEach>
         </Sequence>
