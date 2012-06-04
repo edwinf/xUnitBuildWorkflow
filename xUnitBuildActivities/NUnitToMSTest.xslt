@@ -149,12 +149,9 @@
 						</xsl:call-template>
 					</xsl:variable>
 					<xsl:variable name="pos" select="position()" />
-					<UnitTestResult startTime="2008-01-01T00:00:01.0000000+10:00" endTime="2008-01-01T00:00:02.0000000+10:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d">
+					<UnitTestResult startTime="2008-01-01T00:00:01.0000000+10:00" computerName="localHost" endTime="2008-01-01T00:00:02.0000000+10:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d">
 						<xsl:attribute name="testName">
 							<xsl:value-of select="$testName"/>
-						</xsl:attribute>
-						<xsl:attribute name="computerName">
-							<xsl:value-of select="//environment/@machine-name"/>
 						</xsl:attribute>
 						<xsl:attribute name="duration">
 							<xsl:call-template name="secondsToDuration">
