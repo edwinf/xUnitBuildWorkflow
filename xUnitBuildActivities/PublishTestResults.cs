@@ -13,6 +13,12 @@ using Microsoft.TeamFoundation.Build.Workflow.Services;
 
 namespace CustomBuildActivities
 {
+	/// <summary>
+	/// The bulk of this code, as well as the associated xslt, came from the community TFS build extensions project on codeplex.
+	/// http://tfsbuildextensions.codeplex.com/
+	/// 
+	/// In the future I hope to merge this code into that project and reuse what they have.
+	/// </summary>
 	[BuildActivity(HostEnvironmentOption.Agent)]
 	public sealed class PublishTestResults : CodeActivity
 	{
