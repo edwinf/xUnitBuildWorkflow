@@ -70,9 +70,9 @@
       </x:Property.Attributes>
     </x:Property>
   </x:Members>
-  <sap:VirtualizedContainerService.HintSize>596,1848</sap:VirtualizedContainerService.HintSize>
+  <sap:VirtualizedContainerService.HintSize>603,1494</sap:VirtualizedContainerService.HintSize>
   <mva:VisualBasic.Settings>Assembly references and imported namespaces serialized as XML namespaces</mva:VisualBasic.Settings>
-  <Sequence DisplayName="Run xUnit" sad:XamlDebuggerXmlReader.FileName="E:\Users\Edwin\Programs\Git\xUnitBuildTask\xUnitBuildActivities\xUnit.xaml" sap:VirtualizedContainerService.HintSize="556,1808" mva:VisualBasic.Settings="Assembly references and imported namespaces serialized as XML namespaces">
+  <Sequence DisplayName="Run xUnit" sad:XamlDebuggerXmlReader.FileName="E:\Users\Edwin\Programs\Git\xUnitBuildTask\xUnitBuildActivities\xUnit.xaml" sap:VirtualizedContainerService.HintSize="563,1454" mva:VisualBasic.Settings="Assembly references and imported namespaces serialized as XML namespaces">
     <Sequence.Variables>
       <Variable x:TypeArguments="scg3:IEnumerable(x:String)" Name="MatchingFiles" />
       <Variable x:TypeArguments="x:String" Name="FileSpecToMatch" />
@@ -82,20 +82,20 @@
         <x:Boolean x:Key="IsExpanded">True</x:Boolean>
       </scg3:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
-    <Sequence DisplayName="Validate Arguments" sap:VirtualizedContainerService.HintSize="534,605">
+    <Sequence DisplayName="Validate Arguments" sap:VirtualizedContainerService.HintSize="541,51">
       <Sequence.Variables>
         <Variable x:TypeArguments="x:String" Name="variable1" />
       </Sequence.Variables>
       <sap:WorkflowViewStateService.ViewState>
         <scg3:Dictionary x:TypeArguments="x:String, x:Object">
-          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          <x:Boolean x:Key="IsExpanded">False</x:Boolean>
           <x:Boolean x:Key="IsPinned">False</x:Boolean>
         </scg3:Dictionary>
       </sap:WorkflowViewStateService.ViewState>
-      <If Condition="[String.IsNullOrWhiteSpace(PathToxUnit) Or (Not File.Exists(PathToxUnit))]" DisplayName="Validate PathToxUnit" sap:VirtualizedContainerService.HintSize="464,208">
+      <If Condition="[String.IsNullOrWhiteSpace(PathToxUnit) Or (Not File.Exists(PathToxUnit))]" DisplayName="Validate PathToxUnit" sap:VirtualizedContainerService.HintSize="200,51">
         <sap:WorkflowViewStateService.ViewState>
           <scg3:Dictionary x:TypeArguments="x:String, x:Object">
-            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
             <x:Boolean x:Key="IsPinned">False</x:Boolean>
           </scg3:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
@@ -103,7 +103,7 @@
           <Throw DisplayName="Throw ArgumentException" Exception="[New ArgumentException(&quot;Please specify a valid sources directory to search for matching files&quot;, &quot;SourcesDirectory&quot;)]" sap:VirtualizedContainerService.HintSize="200,22" />
         </If.Then>
       </If>
-      <If Condition="[String.IsNullOrWhiteSpace(TestDLLSpec)]" DisplayName="Validate FileSpec" sap:VirtualizedContainerService.HintSize="464,51">
+      <If Condition="[String.IsNullOrWhiteSpace(TestDLLSpec)]" DisplayName="Validate FileSpec" sap:VirtualizedContainerService.HintSize="200,51">
         <sap:WorkflowViewStateService.ViewState>
           <scg3:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">False</x:Boolean>
@@ -114,7 +114,7 @@
           <Throw DisplayName="Throw ArgumentException" Exception="[New ArgumentException(&quot;Please specify the file specification to search for&quot;, &quot;FileSpec&quot;)]" sap:VirtualizedContainerService.HintSize="200,22" />
         </If.Then>
       </If>
-      <If Condition="[String.IsNullOrWhiteSpace(ResultsFile)]" DisplayName="Validate ResultsFile" sap:VirtualizedContainerService.HintSize="464,51">
+      <If Condition="[String.IsNullOrWhiteSpace(ResultsFile)]" DisplayName="Validate ResultsFile" sap:VirtualizedContainerService.HintSize="200,51">
         <sap:WorkflowViewStateService.ViewState>
           <scg3:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">False</x:Boolean>
@@ -125,7 +125,7 @@
           <Throw DisplayName="Throw ArgumentException" Exception="[New ArgumentException(&quot;Please specify the regular expression to search for&quot;, &quot;RegularExpression&quot;)]" sap:VirtualizedContainerService.HintSize="200,22" />
         </If.Then>
       </If>
-      <If Condition="[String.IsNullOrWhiteSpace(WorkingDirectory)]" DisplayName="Validate WorkingDirectory" sap:VirtualizedContainerService.HintSize="464,51">
+      <If Condition="[String.IsNullOrWhiteSpace(WorkingDirectory)]" DisplayName="Validate WorkingDirectory" sap:VirtualizedContainerService.HintSize="200,51">
         <sap:WorkflowViewStateService.ViewState>
           <scg3:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">False</x:Boolean>
@@ -137,7 +137,7 @@
         </If.Then>
       </If>
     </Sequence>
-    <Assign DisplayName="Form Qualified FileSpec" sap:VirtualizedContainerService.HintSize="534,60">
+    <Assign DisplayName="Form Qualified FileSpec" sap:VirtualizedContainerService.HintSize="541,60">
       <Assign.To>
         <OutArgument x:TypeArguments="x:String">[FileSpecToMatch]</OutArgument>
       </Assign.To>
@@ -145,8 +145,8 @@
         <InArgument x:TypeArguments="x:String">[String.Format("{0}\{1}", WorkingDirectory, TestDLLSpec)]</InArgument>
       </Assign.Value>
     </Assign>
-    <mtbwa:FindMatchingFiles DisplayName="Find Matching Files" sap:VirtualizedContainerService.HintSize="534,22" MatchPattern="[FileSpecToMatch]" Result="[MatchingFiles]" />
-    <If Condition="[MatchingFiles.Any()]" DisplayName="Handle Matching Files" sap:VirtualizedContainerService.HintSize="534,877">
+    <mtbwa:FindMatchingFiles DisplayName="Find Matching Files" sap:VirtualizedContainerService.HintSize="541,22" MatchPattern="[FileSpecToMatch]" Result="[MatchingFiles]" />
+    <If Condition="[MatchingFiles.Any()]" DisplayName="Handle Matching Files" sap:VirtualizedContainerService.HintSize="541,1077">
       <sap:WorkflowViewStateService.ViewState>
         <scg3:Dictionary x:TypeArguments="x:String, x:Object">
           <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -154,25 +154,39 @@
         </scg3:Dictionary>
       </sap:WorkflowViewStateService.ViewState>
       <If.Then>
-        <Sequence DisplayName="Process Matching Files" sap:VirtualizedContainerService.HintSize="309,769">
+        <Sequence DisplayName="Process Matching Files" sap:VirtualizedContainerService.HintSize="316,969">
+          <Sequence.Variables>
+            <Variable x:TypeArguments="x:Int32" Default="0" Name="loopCount" />
+          </Sequence.Variables>
           <sap:WorkflowViewStateService.ViewState>
             <scg3:Dictionary x:TypeArguments="x:String, x:Object">
               <x:Boolean x:Key="IsExpanded">True</x:Boolean>
             </scg3:Dictionary>
           </sap:WorkflowViewStateService.ViewState>
-          <mtbwa:WriteBuildMessage DisplayName="Log Test Run Starting" sap:VirtualizedContainerService.HintSize="287,22" Importance="[BuildMessageImportance.High]" Message="Begining xUnit run" mva:VisualBasic.Settings="Assembly references and imported namespaces serialized as XML namespaces" />
-          <ForEach x:TypeArguments="x:String" DisplayName="Enumerate Matching Files" sap:VirtualizedContainerService.HintSize="287,583" Values="[MatchingFiles]">
+          <mtbwa:WriteBuildMessage DisplayName="Log Test Run Starting" sap:VirtualizedContainerService.HintSize="294,22" Importance="[BuildMessageImportance.High]" Message="Begining xUnit run" mva:VisualBasic.Settings="Assembly references and imported namespaces serialized as XML namespaces" />
+          <ForEach x:TypeArguments="x:String" DisplayName="Enumerate Matching Files" sap:VirtualizedContainerService.HintSize="294,783" Values="[MatchingFiles]">
             <ActivityAction x:TypeArguments="x:String">
               <ActivityAction.Argument>
                 <DelegateInArgument x:TypeArguments="x:String" Name="path" />
               </ActivityAction.Argument>
-              <Sequence sap:VirtualizedContainerService.HintSize="256,475">
+              <Sequence sap:VirtualizedContainerService.HintSize="264,675">
+                <Sequence.Variables>
+                  <Variable x:TypeArguments="x:String" Name="tempResultsFile" />
+                </Sequence.Variables>
                 <sap:WorkflowViewStateService.ViewState>
                   <scg3:Dictionary x:TypeArguments="x:String, x:Object">
                     <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                   </scg3:Dictionary>
                 </sap:WorkflowViewStateService.ViewState>
-                <mtbwa:InvokeProcess Arguments="[String.Format(&quot;{0} /silent {1} {2}&quot;, path, If(UseXMLOutputFormat = True, &quot;/xml&quot;, &quot;&quot;), If(UseXMLOutputFormat = True, ResultsFile, &quot;&quot;))]" DisplayName="xUnit Runner" FileName="[PathToxUnit]" sap:VirtualizedContainerService.HintSize="234,198" Result="[xUnitReturnCode]" WorkingDirectory="[WorkingDirectory]">
+                <Assign sap:VirtualizedContainerService.HintSize="242,60">
+                  <Assign.To>
+                    <OutArgument x:TypeArguments="x:String">[tempResultsFile]</OutArgument>
+                  </Assign.To>
+                  <Assign.Value>
+                    <InArgument x:TypeArguments="x:String">[System.IO.Path.GetFileNameWithoutExtension(ResultsFile) + loopCount.ToString + System.IO.Path.GetExtension(ResultsFile)]</InArgument>
+                  </Assign.Value>
+                </Assign>
+                <mtbwa:InvokeProcess Arguments="[String.Format(&quot;{0} /silent {1} {2}&quot;, path, If(UseXMLOutputFormat = True, &quot;/nunit&quot;, &quot;&quot;), If(UseXMLOutputFormat = True, System.IO.Path.Combine(WorkingDirectory, tempResultsFile), &quot;&quot;))]" DisplayName="xUnit Runner" FileName="[PathToxUnit]" sap:VirtualizedContainerService.HintSize="242,198" Result="[xUnitReturnCode]" WorkingDirectory="[WorkingDirectory]">
                   <mtbwa:InvokeProcess.ErrorDataReceived>
                     <ActivityAction x:TypeArguments="x:String">
                       <ActivityAction.Argument>
@@ -196,8 +210,16 @@
                     </scg3:Dictionary>
                   </sap:WorkflowViewStateService.ViewState>
                 </mtbwa:InvokeProcess>
-                <local:PublishTestResults BuildSettings="[BuildSettings]" sap:VirtualizedContainerService.HintSize="234,22" ResultFileToPublish="[System.IO.Path.Combine(WorkingDirectory, ResultsFile)]" />
-                <If Condition="[xUnitReturnCode &lt;&gt; 0]" sap:VirtualizedContainerService.HintSize="234,51">
+                <local:PublishTestResults BuildSettings="[BuildSettings]" sap:VirtualizedContainerService.HintSize="242,22" ResultFileToPublish="[System.IO.Path.Combine(WorkingDirectory, tempResultsFile)]" />
+                <Assign sap:VirtualizedContainerService.HintSize="242,60">
+                  <Assign.To>
+                    <OutArgument x:TypeArguments="x:Int32">[loopCount]</OutArgument>
+                  </Assign.To>
+                  <Assign.Value>
+                    <InArgument x:TypeArguments="x:Int32">[loopCount + 1]</InArgument>
+                  </Assign.Value>
+                </Assign>
+                <If Condition="[xUnitReturnCode &lt;&gt; 0]" sap:VirtualizedContainerService.HintSize="242,51">
                   <sap:WorkflowViewStateService.ViewState>
                     <scg3:Dictionary x:TypeArguments="x:String, x:Object">
                       <x:Boolean x:Key="IsExpanded">False</x:Boolean>
